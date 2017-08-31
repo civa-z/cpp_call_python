@@ -18,8 +18,8 @@ public:
             return;
         }
 
-		//http://stackoverflow.com/questions/41323576/attributeerror-due-to-sys-argv0-for-import-tensorflow-as-tf-inside-c
-		//PyRun_SimpleString("import sys\nsys.argv = ['']");
+        //http://stackoverflow.com/questions/41323576/attributeerror-due-to-sys-argv0-for-import-tensorflow-as-tf-inside-c
+        //PyRun_SimpleString("import sys\nsys.argv = ['']");
         //PyRun_SimpleString("import tensorflow as tf");
 
         PyRun_SimpleString("import sys");
@@ -27,25 +27,25 @@ public:
         PyRun_SimpleString(command.c_str());
         pyName = PyString_FromString(file_name.c_str());
         pyModule = PyImport_Import(pyName);
-		if (!pyModule){
+        if (!pyModule){
             std::cout<<"Can not open file: "<<file_name<<std::endl;
             initialize_status = false;
-			return;
-		}
+            return;
+        }
 
-		pyDict = PyModule_GetDict(pyModule);
-		if (!pyDict) {
+        pyDict = PyModule_GetDict(pyModule);
+        if (!pyDict) {
             std::cout<<"Get dictory error\n";
             initialize_status = false;
-			return;
-		}
+            return;
+        }
 
-		pyFunction = PyDict_GetItemString(pyDict, function_name.c_str());
-		if (!pyFunction || !PyCallable_Check(pyFunction)) {
+        pyFunction = PyDict_GetItemString(pyDict, function_name.c_str());
+        if (!pyFunction || !PyCallable_Check(pyFunction)) {
             std::cout<<"can't find function: "<<function_name<<std::endl;
             initialize_status = false;
-			return;
-		}
+            return;
+        }
         initialize_status = true;
     }
 
@@ -101,9 +101,9 @@ private:
     const std::string function_name;
 
     bool initialize_status;
-	PyObject* pyName;
-	PyObject* pyModule;
-	PyObject* pyDict;
-	PyObject* pyFunction;
+    PyObject* pyName;
+    PyObject* pyModule;
+    PyObject* pyDict;
+    PyObject* pyFunction;
 };
 
